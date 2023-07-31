@@ -1,2 +1,2 @@
 # SeguremOsPersas
-teste teste
+Escrever a premissa do jogo aqui
