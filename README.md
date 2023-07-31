@@ -1,2 +1,2 @@
 # SeguremOsPersas
-Um jogo de horda onde você é uma soldado espartano enfrentando as hordas Persas enviadas por Xerxes a Termópilas.
+Neste jogo de hordas, você irá controlar Apolo e Adônis, dois guerreiros que se encontram na batalha de Termópilas para evitar o avanço das tropas Persas de Xerxes, utilizando de poderes e bençõs divinas.
