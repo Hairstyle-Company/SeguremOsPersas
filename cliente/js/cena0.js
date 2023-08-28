@@ -5,10 +5,30 @@ export default class cena0 extends Phaser.Scene {
 
   preload () {
     this.load.image('ifsc-sj-2014', '../assets/imagens/ifsc-sj-2014.png')
+    this.load.spritesheet('derek', '../assets/imagens/Derek.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    })
   }
 
   create () {
     this.add.image(400, 225, 'ifsc-sj-2014')
+    this.personagem = this.physics.add.sprite(400, 255, 'derek')
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.personagem.anims.play('derek-direita')
+        this.personagem.setVelocityX(100)
+       })
+    
+    this.anims.create({
+      key: 'derek-direita',
+      frames: this.anims.generateFrameNumbers('derek', {
+        start: 8,
+        end: 11
+      }),
+      frameRate: 6,
+      repeat: -1
+    })
   }
 
   countdown () { }
