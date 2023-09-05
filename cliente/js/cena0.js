@@ -21,33 +21,28 @@ export default class cena0 extends Phaser.Scene {
 
   create () {
     this.add.image(400, 225, 'ifsc-sj-2014')
-
+   
     this.personagem = this.physics.add.sprite(400, 255, 'player1')
-      .setInteractive()
-      .on('pointerdown', () => {
-        this.personagem.anims.play('player1-direita')
-        this.personagem.setVelocityX(100)
-      })
+
+     
 
     /* Animação parado*/
     this.anims.create({
       key: 'player1-parado',
       frames: this.anims.generateFrameNumbers('player1', {
         start: 0,
-        end: 3
-      }),
-      frameRate: 15,
-      repeat: -1
+        end: 0
+      })
     })
 
     /* Animação andar direita */
     this.anims.create({
       key: 'player1-direita',
       frames: this.anims.generateFrameNumbers('player1', {
-        start: 0,
-        end: 3
+        start: 1,
+        end: 2
       }),
-      frameRate: 15,
+      frameRate: 7,
       repeat: -1
     })
 
@@ -55,10 +50,10 @@ export default class cena0 extends Phaser.Scene {
     this.anims.create({
       key: 'player1-esquerda',
       frames: this.anims.generateFrameNumbers('player1', {
-        start: 0,
-        end: 3
+        start: 4,
+        end: 5
       }),
-      frameRate: 15,
+      frameRate: 7,
       repeat: -1
     })
 
@@ -66,10 +61,10 @@ export default class cena0 extends Phaser.Scene {
     this.anims.create({
       key: 'player1-cima',
       frames: this.anims.generateFrameNumbers('player1', {
-        start: 0,
-        end: 3
+        start: 1,
+        end: 2
       }),
-      frameRate: 15,
+      frameRate: 7,
       repeat: -1
     })
 
@@ -77,10 +72,10 @@ export default class cena0 extends Phaser.Scene {
     this.anims.create({
       key: 'player1-baixo',
       frames: this.anims.generateFrameNumbers('player1', {
-        start: 0,
-        end: 3
+        start: 1,
+        end: 2
       }),
-      frameRate: 15,
+      frameRate: 7,
       repeat: -1
     })
 
@@ -148,7 +143,7 @@ export default class cena0 extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.baixo.setFrame(1)
-        this.personagem.anims.play('player1-baixo', true)
+        this.personagem.anims.play('player1-esquerda', true)
         this.personagem.setVelocityY(100)
         this.personagem.setVelocityX(-100)
       })
@@ -180,7 +175,7 @@ export default class cena0 extends Phaser.Scene {
       .setInteractive()
       .on('pointerdown', () => {
         this.cima.setFrame(1)
-        this.personagem.anims.play('player1-cima', true)
+        this.personagem.anims.play('player1-esquerda', true)
         this.personagem.setVelocityY(-100)
         this.personagem.setVelocityX(-100)
       })
