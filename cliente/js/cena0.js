@@ -4,21 +4,31 @@ export default class cena0 extends Phaser.Scene {
   }
 
   preload () {
-    /* Carregar imagens*/
+    /*Carregar imagens*/
     this.load.image('menu-inicial', '../assets/imagens/menu-inicial.png')
     this.load.image('vazio', '../assets/imagens/vazio.png')
-    this.load.spritesheet('tela_cheia', '../assets/botão/telacheia.png', {
+    this.load.spritesheet('telacheia', '../assets/imagens/telacheia.png', {
       frameWidth: 64,
       frameHeight: 64
     })
   }
-  /* Adicionar menu e botão*/
+  /*Adicionar menu e botão*/
   create () {
     this.add.image(400, 225, 'menu-inicial')
-    this.physics.add.spryte(400, 255, 'vazio')
+    this.physics.add.image(400, 390, 'vazio')
 
-this.telacheia = this.add
-      .sprite(750, 50, 'tela_cheia', 0)
+      .setInteractive()
+      .on('pointerover', () => {
+
+      })
+      .on('pointerdown', () => {
+        this.game.scene.stop('cena0')
+        this.game.scene.start('cena1')
+      })
+
+  /* Botão de tela cheia */
+  this.telacheia = this.add
+      .sprite(750,50, 'telacheia', 0)
       .setInteractive()
       .on('pointerdown', () => {
         if (this.scale.isFullscreen) {
@@ -29,6 +39,8 @@ this.telacheia = this.add
           this.scale.startFullscreen()
         }
       })
-      .setScrollFactor(0, 0)
+    .setScrollFactor(0, 0)
+    
   }
 }
+
