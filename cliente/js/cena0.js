@@ -15,7 +15,7 @@ export default class cena0 extends Phaser.Scene {
   /*Adicionar menu e botão*/
   create () {
     this.add.image(400, 225, 'menu-inicial')
-    this.physics.add.image(400, 390, 'vazio')
+    this.physics.add.image(400, 383, 'vazio')
 
       .setInteractive()
       .on('pointerover', () => {
