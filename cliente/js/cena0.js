@@ -14,7 +14,17 @@ export default class cena0 extends Phaser.Scene {
   }
   /*Adicionar menu e botão*/
   create () {
-    this.add.image(400, 225, 'menu-inicial')
+    const fadeIn = (target, duration, onComplete) => {
+      this.tweens.add({
+        targets: target,
+        alpha: 1,
+        duration: duration,
+        onComplete: onComplete,
+      })
+    }
+
+    const mainImg = this.add.image(400, 225, 'menu-inicial').setAlpha(0)
+
     this.physics.add.image(394, 383, 'vazio')
       .setScale(2, 1)
 
@@ -27,9 +37,9 @@ export default class cena0 extends Phaser.Scene {
         this.game.scene.start('cena1')
       })
 
-  /* Botão de tela cheia */
-  this.telacheia = this.add
-      .sprite(750,50, 'telacheia', 0)
+    /* Botão de tela cheia */
+    const fullscreenImg = this.telacheia = this.add
+      .sprite(750, 50, 'telacheia', 0)
       .setInteractive()
       .on('pointerdown', () => {
         if (this.scale.isFullscreen) {
@@ -40,8 +50,11 @@ export default class cena0 extends Phaser.Scene {
           this.scale.startFullscreen()
         }
       })
-    .setScrollFactor(0, 0)
-    
+      .setScrollFactor(0, 0)
+      .setAlpha(0)
+
+    fadeIn(mainImg, 2000)
+    fadeIn(fullscreenImg, 2000)
   }
 }
 
