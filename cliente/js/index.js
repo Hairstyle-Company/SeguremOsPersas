@@ -1,4 +1,5 @@
 import config from './config.js'
+import logo from './logo.js'
 import cena0 from './cena0.js'
 import cena1 from './cena1.js'
 import cena2 from './cena2.js'
@@ -9,7 +10,8 @@ import defeat from './defeat.js'
 class Game extends Phaser.Game {
   constructor () {
     super(config)
-
+    
+    this.scene.add('logo', logo)
     this.scene.add('cena0', cena0)
     this.scene.add('cena1', cena1)
     this.scene.add('cena2', cena2)
