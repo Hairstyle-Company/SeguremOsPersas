@@ -33,7 +33,6 @@ export default class cena1 extends Phaser.Scene {
     this.add.image(400, 225, 'salas')
 
     for (let i = 0; i < this.listaSalaPos.length; i++) {
-      console.log(this.listaSalaPos)
       this.physics.add.image(this.listaSalaPos[i][0], this.listaSalaPos[i][1], 'vazio')
         .setScale(6.5, 2.5)
         
