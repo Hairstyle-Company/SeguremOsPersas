@@ -15,6 +15,12 @@ export default class cena3 extends Phaser.Scene {
       frameHeight: 64
     })
 
+    /* Imagem do inimigo */
+    this.load.spritesheet('persa-comum1', '../assets/imagens/persa-comum1.png', {
+      frameWidth: 40,
+      frameHeight: 56
+    })
+
     /* Imagem dos botões */
     this.load.image('vazio', '../assets/imagens/vazio.png')
     this.load.image('circulo', '../assets/imagens/circulo.png')
@@ -26,6 +32,12 @@ export default class cena3 extends Phaser.Scene {
   create () {
     this.add.image(400, 225, 'mapa')
     this.personagem = this.physics.add.sprite(400, 255, 'player1')
+
+    /* Adicionar inimigo */
+    this.persaComum1 = this.physics.add.sprite(200, 155, 'persa-comum1')
+
+    /* Adicionar físicas :,(*/
+
 
     /* Animação parado*/
     this.anims.create({
@@ -112,5 +124,8 @@ export default class cena3 extends Phaser.Scene {
     }
   }
 
-  countdown () { }
+  defeat () {
+    this.game.scene.stop('cena3')
+    this.game.scene.start('defeat')
+  }
 }
