@@ -9,7 +9,11 @@
     "eslint-plugin-n": "^16.0.2",
     "eslint-plugin-promise": "^6.1.1"
   },
+  "engines": {
+    "nodes": ">=14"
+  },
   "scripts": {
+    "install": "npm install --prefix servidor",
     "start": "npm start --prefix servidor"
   },
   "name": "seguremospersas",

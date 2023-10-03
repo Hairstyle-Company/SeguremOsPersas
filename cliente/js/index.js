@@ -10,6 +10,16 @@ import defeat from './defeat.js'
 class Game extends Phaser.Game {
   constructor () {
     super(config)
+
+    this.socket = io()
+    this.socket.on('connect', () => {
+      console.log('conectado ao servidor!')
+
+      this.socket.emit('entrar-na-sala', 1)
+
+      this.socket.on('jogadores', (jogadores) => {
+      })
+    })
     
     this.scene.add('logo', logo)
     this.scene.add('cena0', cena0)

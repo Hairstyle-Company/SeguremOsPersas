@@ -32,6 +32,7 @@ export default class cena3 extends Phaser.Scene {
   create () {
     this.add.image(400, 225, 'mapa')
     this.personagem = this.physics.add.sprite(400, 255, 'player1')
+    this.personagem.setCollideWorldBounds(true);
 
     /* Adicionar inimigo */
     this.persaComum1 = this.physics.add.sprite(200, 155, 'persa-comum1')
@@ -92,40 +93,51 @@ export default class cena3 extends Phaser.Scene {
       repeat: -1
     })
 
+    // Configuração do joystick para 8 direções
     this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
       x: 125,
       y: 325,
       radius: 70,
       base: this.add.circle(0, 0, 100, 0x888888),
       thumb: this.add.circle(0, 0, 50, 0xcccccc),
-      // dir: '8dir',
-      forceMin: 16,
-      // fixed: true,
-      // enable: true
+      dir: '8dir', // Configuração para 8 direções
+      forceMin: 16
     }).on('pointerup', () => {
-      this.personagem.setVelocityX(0)
-      this.personagem.setVelocityY(0)
-    })
+      this.personagem.setVelocity(0, 0); // Pare o personagem quando o joystick é solto
+    });
   }
 
-
   update () {
-    if (this.joystick.createCursorKeys().up.isDown) {
-      this.personagem.setVelocityY(-100)
+    const cursorKeys = this.joystick.createCursorKeys();
+
+    // Defina a velocidade do personagem com base nas teclas pressionadas
+    const speed = 100; // Velocidade do personagem
+    let velocityX = 0;
+    let velocityY = 0;
+
+    if (cursorKeys.up.isDown) {
+      velocityY = -speed;
+    } else if (cursorKeys.down.isDown) {
+      velocityY = speed;
     }
-    if (this.joystick.createCursorKeys().down.isDown) {
-      this.personagem.setVelocityY(100)
+
+    if (cursorKeys.left.isDown) {
+      velocityX = -speed;
+    } else if (cursorKeys.right.isDown) {
+      velocityX = speed;
     }
-    if (this.joystick.createCursorKeys().left.isDown) {
-      this.personagem.setVelocityX(-100)
+
+    // Normalize a velocidade nas diagonais para evitar movimento mais rápido
+    if (velocityX !== 0 && velocityY !== 0) {
+      velocityX *= Math.sqrt(0.5);
+      velocityY *= Math.sqrt(0.5);
     }
-    if (this.joystick.createCursorKeys().right.isDown) {
-      this.personagem.setVelocityX(100)
-    }
+
+    this.personagem.setVelocity(velocityX, velocityY);
   }
 
   defeat () {
-    this.game.scene.stop('cena3')
-    this.game.scene.start('defeat')
+    this.game.scene.stop('cena3');
+    this.game.scene.start('defeat');
   }
 }
