@@ -3,7 +3,6 @@ tasks:
     command: npm start --prefix servidor
   - name: servidor
     init: Npm install
-    command: npm start
 
 ports:
   - port: 3000

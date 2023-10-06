@@ -33,6 +33,7 @@ export default class cena3 extends Phaser.Scene {
     this.add.image(400, 225, 'mapa')
     this.personagem = this.physics.add.sprite(400, 255, 'player1')
     this.personagem.setCollideWorldBounds(true);
+    this.physics.add.collider(this.personagem, this.persaComum1, this.defeat, null, this)
 
     /* Adicionar inimigo */
     this.persaComum1 = this.physics.add.sprite(200, 155, 'persa-comum1')
@@ -92,6 +93,12 @@ export default class cena3 extends Phaser.Scene {
       frameRate: 7,
       repeat: -1
     })
+
+    if (this.game.jogadores.primeiro === this.game.socket.id) {
+    this.personagem = this.physics.add.sprite(400, 255, 'player1')    
+    } else if (this.game.jogadores.segundo === this.game.socket.id) {
+    this.personagem = this.physics.add.sprite(400, 255, 'player1')
+    } else
 
     // Configuração do joystick para 8 direções
     this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
