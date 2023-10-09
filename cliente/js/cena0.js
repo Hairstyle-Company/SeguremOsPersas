@@ -34,7 +34,7 @@ export default class cena0 extends Phaser.Scene {
       })
       .on('pointerdown', () => {
         this.game.scene.stop('cena0')
-        this.game.scene.start('cena1')
+        this.game.scene.start('sala')
       })
 
     /* Botão de tela cheia */
