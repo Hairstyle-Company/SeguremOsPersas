@@ -16,9 +16,9 @@ class Game extends Phaser.Game {
     this.socket.on('connect', () => {
       console.log('conectado ao servidor!')
 
-      this.socket.emit('entrar-na-sala', 1)
-
       this.socket.on('jogadores', (jogadores) => {
+        this.jogadores = jogadores
+        console.log(this.jogadores)
       })
     })
     
@@ -31,7 +31,7 @@ class Game extends Phaser.Game {
     this.scene.add('win', win)
     this.scene.add('defeat', defeat)
 
-    this.scene.start('cena0')
+    this.scene.start('sala')
   }
 }
 

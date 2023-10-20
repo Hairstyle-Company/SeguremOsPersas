@@ -7,8 +7,6 @@ export default class sala extends Phaser.Scene {
   }
 
   create () {
-    this.add.image('fundo')
-
     this.salas = [
       {
         numero: 1,
@@ -33,6 +31,7 @@ export default class sala extends Phaser.Scene {
             this.game.scene.start('cena3')
           })
           this.game.socket.emit('entrar-na-sala', sala.numero)
+          this.game.sala = sala.numero
           this.aguarde = this.add
             .text(this.game.config.width / 2,
               this.game.config.heigth / 2,

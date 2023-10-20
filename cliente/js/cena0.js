@@ -11,9 +11,16 @@ export default class cena0 extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64
     })
+
+    this.load.audio('musica-abertura', '../assets/musicas/musica-abertura.mp3')
+
+
   }
   /*Adicionar menu e botão*/
   create () {
+
+    
+
     const fadeIn = (target, duration, onComplete) => {
       this.tweens.add({
         targets: target,
