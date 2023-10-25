@@ -92,6 +92,7 @@ export default class cena3 extends Phaser.Scene {
       repeat: -1
     })*/
 
+    /* multiplayer */
     if (this.game.jogadores.primeiro === this.game.socket.id) {
       this.local = 'player1'
       this.remote = 'player2'
@@ -102,10 +103,60 @@ export default class cena3 extends Phaser.Scene {
       this.remote = 'player1'
       this.personagem = this.physics.add.sprite(300, 255, this.local)
       this.personagemRemoto = this.add.sprite(400, 255, this.remote)
+    
+      /* Chat de voz */
+      navigator.mediaDevices.getUserMedia({ video: false, audio: true })
+        .then((stream) => {
+          this.game.localConnection = new RTCPeerConnection(this.game.ice_servers)
+
+          this.game.localConnection.onicecandidate = ({ candidate }) =>
+            candidate && this.game.socket.emit('candidate', this.game.sala, candidate)
+
+          this.game.localConnection.ontrack = ({ streams: [stream] }) =>
+            this.game.audio.srcObject = stream
+
+          stream.getTracks()
+            .forEach((track) => this.game.localConnection.addTrack(track, stream))
+
+          this.game.localConnection.createOffer()
+            .then((offer) => this.game.localConnection.setLocalDescription(offer))
+            .then(() => this.game.socket.emit('offer', this.game.sala, this.game.localConnection.localDescription))
+
+          this.game.midias = stream
+        })
+        .catch((error) => console.error(error))
     }
+
+    this.game.socket.on('offer', (description) => {
+      this.game.remoteConnection = new RTCPeerConnection(this.game.ice_servers)
+
+      this.game.remoteConnection.onicecandidate = ({ candidate }) =>
+        candidate && this.game.socket.emit('candidate', this.game.sala, candidate)
+
+      this.game.remoteConnection.ontrack = ({ streams: [midia] }) =>
+        this.game.audio.srcObject = midia
+
+      this.game.midias.getTracks()
+        .forEach((track) => this.game.remoteConnection.addTrack(track, this.game.midias))
+
+      this.game.remoteConnection.setRemoteDescription(description)
+        .then(() => this.game.remoteConnection.createAnswer())
+        .then((answer) => this.game.remoteConnection.setLocalDescription(answer))
+        .then(() => this.game.socket.emit('answer', this.game.sala, this.game.remoteConnection.localDescription))
+    })
+
+    this.game.socket.on('answer', (description) =>
+      this.game.localConnection.setRemoteDescription(description)
+    )
+
+    this.game.socket.on('candidate', (candidate) => {
+      const conn = this.game.localConnection || this.game.remoteConnection
+      conn.addIceCandidate(new RTCIceCandidate(candidate))
+    })
+
+
     this.personagem.setCollideWorldBounds(true);
     this.physics.add.collider(this.personagem, this.persaComum1, this.defeat, null, this)
-
 
     // Configuração do joystick para 8 direções
     this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
