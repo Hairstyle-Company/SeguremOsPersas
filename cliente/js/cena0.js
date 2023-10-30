@@ -19,7 +19,7 @@ export default class cena0 extends Phaser.Scene {
   /*Adicionar menu e botão*/
   create () {
 
-    
+
 
     const fadeIn = (target, duration, onComplete) => {
       this.tweens.add({
@@ -37,7 +37,6 @@ export default class cena0 extends Phaser.Scene {
 
       .setInteractive()
       .on('pointerover', () => {
-
       })
       .on('pointerdown', () => {
         this.game.scene.stop('cena0')

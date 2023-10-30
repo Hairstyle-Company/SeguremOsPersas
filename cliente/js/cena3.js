@@ -29,10 +29,16 @@ export default class cena3 extends Phaser.Scene {
     this.load.image('vazio', '../assets/imagens/vazio.png')
     this.load.image('circulo', '../assets/imagens/circulo.png')
     this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true)
+    this.load.audio('trilha-combate', '../assets/musicas/musica-combate.mp3')
   }
 
-  /* Adicionar mapa/player*/
+  /* Adicionar mapa/player */
   create () {
+    this.game.trilhaCombate = this.sound.add('trilha-combate')
+    this.game.trilhaCombate.loop = true
+    this.game.trilhaCombate.play()
+    this.game.scene.getScene('logo').trilhaMenu.stop()
+
     this.add.image(400, 225, 'mapa')
     // this.personagem = this.physics.add.sprite(400, 255, 'player1')
 
@@ -103,7 +109,7 @@ export default class cena3 extends Phaser.Scene {
       this.remote = 'player1'
       this.personagem = this.physics.add.sprite(300, 255, this.local)
       this.personagemRemoto = this.add.sprite(400, 255, this.remote)
-    
+
       /* Chat de voz */
       navigator.mediaDevices.getUserMedia({ video: false, audio: true })
         .then((stream) => {
@@ -162,9 +168,9 @@ export default class cena3 extends Phaser.Scene {
     this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
       x: 125,
       y: 325,
-      radius: 70,
-      base: this.add.circle(0, 0, 100, 0x888888),
-      thumb: this.add.circle(0, 0, 50, 0xcccccc),
+      radius: 60,
+      base: this.add.circle(0, 0, 70, 0x888888),
+      thumb: this.add.circle(0, 0, 35, 0xcccccc),
       dir: '8dir', // Configuração para 8 direções
       forceMin: 16
     }).on('pointerup', () => {

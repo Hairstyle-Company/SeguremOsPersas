@@ -10,7 +10,6 @@ export default class cena2 extends Phaser.Scene {
 
   create () {
     this.add.image(400, 225, 'menu-sala')
-
       .setInteractive()
       .on('pointerdown', () => {
         this.game.scene.stop('cena2')
