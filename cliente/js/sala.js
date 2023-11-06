@@ -8,7 +8,7 @@ export default class sala extends Phaser.Scene {
 
   create () {
 
-    this.mensagem = this.add.text(100, 75, 'Escolha uma sala para entrar:', {
+    this.mensagem = this.add.text(100, 50, 'Escolha uma sala para entrar:', {
       fontFamily: 'monospace',
       font: '32px Courier',
       fill: '#cccccc'
@@ -17,14 +17,46 @@ export default class sala extends Phaser.Scene {
     this.salas = [
       {
         numero: 1,
-        x: 100,
-        y: 200
+        x: 65,
+        y: 175
       },
       {
         numero: 2,
-        x: 400,
-        y: 200
-      }
+        x: 250,
+        y: 175
+      },
+      {
+        numero: 3,
+        x: 435,
+        y: 175
+      },
+      {
+        numero: 4,
+        x: 620,
+        y: 175
+      },
+      {
+        numero: 5,
+        x: 65,
+        y: 300
+      },
+      {
+        numero: 6,
+        x: 250,
+        y: 300
+      },
+      {
+        numero: 7,
+        x: 435,
+        y: 300
+      },
+      {
+        numero: 8,
+        x: 620,
+        y: 300
+      },
+
+      
     ]
 
     this.salas.forEach((sala) => {
@@ -49,7 +81,7 @@ export default class sala extends Phaser.Scene {
           this.mensagem.setText('Conectando...')
           this.game.jogadores = jogadores
           this.game.scene.stop('sala')
-          this.game.scene.start('cena3')
+          this.game.scene.start('cena2')
         } else if (jogadores.primeiro) {
           this.mensagem.setText('Aguardando segundo jogador...')
           navigator.mediaDevices

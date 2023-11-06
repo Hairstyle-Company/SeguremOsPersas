@@ -1,4 +1,5 @@
 import config from './config.js'
+import defeat from './defeat.js'
 
 export default class cena3 extends Phaser.Scene {
   constructor () {
@@ -40,7 +41,6 @@ export default class cena3 extends Phaser.Scene {
     this.game.scene.getScene('logo').trilhaMenu.stop()
 
     this.add.image(400, 225, 'mapa')
-    // this.personagem = this.physics.add.sprite(400, 255, 'player1')
 
     /* Adicionar inimigo */
     this.persaComum1 = this.physics.add.sprite(200, 155, 'persa-comum1')
@@ -160,9 +160,9 @@ export default class cena3 extends Phaser.Scene {
       conn.addIceCandidate(new RTCIceCandidate(candidate))
     })
 
-
+    // Colisão com o mundo
     this.personagem.setCollideWorldBounds(true);
-    this.physics.add.collider(this.personagem, this.persaComum1, this.defeat, null, this)
+
 
     // Configuração do joystick para 8 direções
     this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
@@ -182,6 +182,8 @@ export default class cena3 extends Phaser.Scene {
       this.personagemRemoto.y = y
       this.personagemRemoto.setFrame(frame)
     })
+
+    this.physics.add.collider(this.personagem, this.persaComum1, this.defeat, null, this)
   }
 
   update () {
@@ -192,27 +194,26 @@ export default class cena3 extends Phaser.Scene {
     let velocityX = 0;
     let velocityY = 0;
 
-    if (cursorKeys.up.isDown) {
-      velocityY = -speed;
-    } else if (cursorKeys.down.isDown) {
-      velocityY = speed;
-    }
-
-    if (cursorKeys.left.isDown) {
-      velocityX = -speed;
-    } else if (cursorKeys.right.isDown) {
-      velocityX = speed;
-    }
-
-    // Normalize a velocidade nas diagonais para evitar movimento mais rápido
-    if (velocityX !== 0 && velocityY !== 0) {
-      velocityX *= Math.sqrt(0.5);
-      velocityY *= Math.sqrt(0.5);
-    }
-
-    this.personagem.setVelocity(velocityX, velocityY);
-
     try {
+      if (cursorKeys.up.isDown) {
+        velocityY = -speed;
+      } else if (cursorKeys.down.isDown) {
+        velocityY = speed;
+      }
+
+      if (cursorKeys.left.isDown) {
+        velocityX = -speed;
+      } else if (cursorKeys.right.isDown) {
+        velocityX = speed;
+      }
+
+      // Normalize a velocidade nas diagonais para evitar movimento mais rápido
+      if (velocityX !== 0 && velocityY !== 0) {
+        velocityX *= Math.sqrt(0.5);
+        velocityY *= Math.sqrt(0.5);
+      }
+
+      this.personagem.setVelocity(velocityX, velocityY);
       this.game.socket.emit('estado-publicar', this.game.sala, {
         cena: 'cena3',
         x: this.personagem.x,
@@ -223,5 +224,10 @@ export default class cena3 extends Phaser.Scene {
     catch (error) {
       console.error(error)
     }
+  }
+
+  defeat () {
+    this.game.scene.stop('cena3')
+    this.game.scene.start('defeat')
   }
 }
