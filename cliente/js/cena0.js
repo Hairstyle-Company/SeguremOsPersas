@@ -13,11 +13,14 @@ export default class cena0 extends Phaser.Scene {
     })
 
     this.load.audio('musica-abertura', '../assets/musicas/musica-abertura.mp3')
-
+    this.load.audio('trilha-menu', '../assets/musicas/musica-menu.mp3')
 
   }
   /*Adicionar menu e botão*/
   create () {
+    this.trilhaMenu = this.sound.add('trilha-menu')
+    this.trilhaMenu.loop = true
+    this.trilhaMenu.play()
 
 
 

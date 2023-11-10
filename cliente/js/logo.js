@@ -6,13 +6,11 @@ export default class defeat extends Phaser.Scene {
   preload () {
     /*Carregar imagens*/
     this.load.image('logo-empresa', '../assets/imagens/logo-empresa.png')
-    this.load.audio('trilha-menu', '../assets/musicas/musica-menu.mp3')
+
   }
 
   create () {
-    this.trilhaMenu = this.sound.add('trilha-menu')
-    this.trilhaMenu.loop = true
-    this.trilhaMenu.play()
+
 
     const fadeIn = (target, duration, onComplete) => {
       this.tweens.add({
