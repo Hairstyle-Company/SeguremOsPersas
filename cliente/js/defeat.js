@@ -10,6 +10,9 @@ export default class defeat extends Phaser.Scene {
 
     /* Adicionar mapa/player*/
   create () {
+
+    this.game.scene.getScene('cena0').trilhaCombate.stop()
+
     this.add.image(400, 225, 'game-over')
       .setScale(0.1, 0.1)
       .setInteractive()
@@ -17,7 +20,7 @@ export default class defeat extends Phaser.Scene {
         this.game.scene.stop('defeat')
         this.game.scene.start('cena0')
       })
-  }
+    }
 
     /*Final*/
 }

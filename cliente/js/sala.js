@@ -81,7 +81,7 @@ export default class sala extends Phaser.Scene {
           this.mensagem.setText('Conectando...')
           this.game.jogadores = jogadores
           this.game.scene.stop('sala')
-          this.game.scene.start('cena2')
+          this.game.scene.start('cena3')
         } else if (jogadores.primeiro) {
           this.mensagem.setText('Aguardando segundo jogador...')
           navigator.mediaDevices

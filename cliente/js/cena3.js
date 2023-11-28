@@ -1,6 +1,3 @@
-import config from './config.js'
-import defeat from './defeat.js'
-
 export default class cena3 extends Phaser.Scene {
   constructor () {
     super('cena3')
@@ -35,15 +32,17 @@ export default class cena3 extends Phaser.Scene {
 
   /* Adicionar mapa/player */
   create () {
+    this.vida = 1
+
     this.game.trilhaCombate = this.sound.add('trilha-combate')
     this.game.trilhaCombate.loop = true
     this.game.trilhaCombate.play()
-    this.game.scene.getScene('logo').trilhaMenu.stop()
+    this.game.scene.getScene('cena0').trilhaMenu.stop()
 
     this.add.image(400, 225, 'mapa')
 
     /* Adicionar inimigo */
-    this.persaComum1 = this.physics.add.sprite(200, 155, 'persa-comum1')
+    this.persaComum1 = this.physics.add.sprite(75, 55, 'persa-comum1')
 
     /* Animação parado*/
     /* this.anims.create({
@@ -183,7 +182,7 @@ export default class cena3 extends Phaser.Scene {
       this.personagemRemoto.setFrame(frame)
     })
 
-    this.physics.add.collider(this.personagem, this.persaComum1, this.defeat, null, this)
+    this.physics.add.collider(this.personagem, this.persaComum1, this.morte, null, this)
   }
 
   update () {
@@ -224,10 +223,65 @@ export default class cena3 extends Phaser.Scene {
     catch (error) {
       console.error(error)
     }
+
+    //Persa persegue players
+    try {
+      this.game.socket.emit('estado-publicar', this.game.sala, {
+        x: this.personagem.x,
+        y: this.personagem.y,
+        frame: this.personagem.frame.name
+      })
+      if (this.vida > 0) {
+        /* persa segue personagem mais próximo */
+        const hipotenusaPersonagem = Phaser.Math.Distance.Between(
+          this.personagem.x,
+          this.persaComum1.x,
+          this.personagem.y,
+          this.persaComum1.y
+        )
+
+        const hipotenusaPersonagemRemoto = Phaser.Math.Distance.Between(
+          this.personagemRemoto.x,
+          this.persaComum1.x,
+          this.personagemRemoto.y,
+          this.persaComum1.y
+        )
+
+        /* Por padrão, o primeiro jogador é o alvo */
+        let alvo = this.personagem
+        if (hipotenusaPersonagem > hipotenusaPersonagemRemoto) {
+          /* Jogador 2 é perseguido pelo persa */
+          alvo = this.personagemRemoto
+        }
+
+        /* Sentido no eixo X */
+        const diffX = alvo.x - this.persaComum1.x
+        if (diffX >= 10) {
+          this.persaComum1.setVelocityX(25)
+        } else if (diffX <= 10) {
+          this.persaComum1.setVelocityX(-25)
+        }
+
+        /* Sentido no eixo Y */
+        const diffY = alvo.y - this.persaComum1.y
+        if (diffY >= 10) {
+          this.persaComum1.setVelocityY(25)
+        } else if (diffY <= 10) {
+          this.persaComum1.setVelocityY(-25)
+        }
+      }
+    }
+    catch (error) {
+      console.error(error)
+    }
   }
 
   defeat () {
     this.game.scene.stop('cena3')
     this.game.scene.start('defeat')
+  }
+
+  morte () {
+    this.personagem.disableBody(true, true)
   }
 }

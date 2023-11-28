@@ -12,7 +12,6 @@ export default class cena0 extends Phaser.Scene {
       frameHeight: 64
     })
 
-    this.load.audio('musica-abertura', '../assets/musicas/musica-abertura.mp3')
     this.load.audio('trilha-menu', '../assets/musicas/musica-menu.mp3')
 
   }
