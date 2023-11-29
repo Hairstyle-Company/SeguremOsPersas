@@ -5,7 +5,7 @@ import cena2 from './cena2.js'
 import cena3 from './cena3.js'
 import sala from './sala.js'
 import win from './win.js'
-import defeat from './defeat.js'
+import gameover from './gameover.js'
 
 class Game extends Phaser.Game {
   constructor () {
@@ -39,10 +39,21 @@ class Game extends Phaser.Game {
     this.socket = io()
     this.socket.on('connect', () => {
       console.log('conectado ao servidor!')
+      
+      this.socket.on('cena-notificar', cena => {
+        this.scene.stop(this.cena)
+        this.scene.start(cena)
+      })
 
       this.socket.on('jogadores', (jogadores) => {
         this.jogadores = jogadores
         console.log(this.jogadores)
+      })
+
+      this.cenaCorrente = ''
+      this.socket.on('cena-notificar', (cena) => {
+        this.game.scene.stop(this.cenaCorrente)
+        this.game.scene.start(cena)
       })
     })
 
@@ -52,7 +63,7 @@ class Game extends Phaser.Game {
     this.scene.add('cena3', cena3)
     this.scene.add('sala', sala)
     this.scene.add('win', win)
-    this.scene.add('defeat', defeat)
+    this.scene.add('gameover', gameover)
 
     this.scene.start('cena0')
   }
