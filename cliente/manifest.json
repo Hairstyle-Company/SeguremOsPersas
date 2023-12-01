@@ -1,0 +1,29 @@
+{
+  "name": "SeguremOsPersas",
+  "short_name": "SEGUREM OS PERSAS",
+  "lang": "pt-BR",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "./assets/imagens/icone 128.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./assets/imagens/icone 256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "./assets/imagens/icone 256.png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "./assets/imagens/icone 512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
