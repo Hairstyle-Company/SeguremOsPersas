@@ -24,10 +24,7 @@ export default class cena3 extends Phaser.Scene {
     })
 
     /* Imagem da lança */
-    this.load.spritesheet('lança', '../assets/imagens/lança.png', {
-      frameWidth: 80,
-      frameHeight: 7
-    })
+    this.load.image('leao', '../assets/imagens/leao.png')
 
     /* Imagem dos botões */
     this.load.image('vazio', '../assets/imagens/vazio.png')
@@ -41,8 +38,8 @@ export default class cena3 extends Phaser.Scene {
 
     this.game.cenaCorrente = 'cena3'
 
-    // Lança
-    this.lança = this.physics.add.sprite(0, 0, 'lança')
+    // Leão
+    this.leao = this.physics.add.image(400, 400, 'leao')
 
     this.vida = 1
 
