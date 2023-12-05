@@ -39,11 +39,6 @@ class Game extends Phaser.Game {
     this.socket = io()
     this.socket.on('connect', () => {
       console.log('conectado ao servidor!')
-      
-      this.socket.on('cena-notificar', cena => {
-        this.scene.stop(this.cena)
-        this.scene.start(cena)
-      })
 
       this.socket.on('jogadores', (jogadores) => {
         this.jogadores = jogadores
@@ -52,8 +47,8 @@ class Game extends Phaser.Game {
 
       this.cenaCorrente = ''
       this.socket.on('cena-notificar', (cena) => {
-        this.game.scene.stop(this.cenaCorrente)
-        this.game.scene.start(cena)
+        this.scene.stop(this.cenaCorrente)
+        this.scene.start(cena)
       })
     })
 

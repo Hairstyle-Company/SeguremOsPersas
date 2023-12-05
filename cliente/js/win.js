@@ -14,11 +14,17 @@ export default class win extends Phaser.Scene {
     this.credito = this.sound.add('credito')
     this.erro = this.sound.add('erro')
 
+    this.add.text(410, 50, 'VITÓRIA!', {
+      fontFamily: 'monospace',
+      font: '48px Courier',
+      fill: '#cccccc'
+    })
+
     this.posicao = ''
 
     this.usuarioTextoBase = 'Usuário: '
     this.usuarioDigitado = ''
-    this.usuario = this.add.text(450, 100, this.usuarioTextoBase, {
+    this.usuario = this.add.text(450, 150, this.usuarioTextoBase, {
       fontFamily: 'monospace',
       font: '32px Courier',
       fill: '#cccccc'
@@ -35,7 +41,7 @@ export default class win extends Phaser.Scene {
 
     this.senhaTextoBase = 'Senha: '
     this.senhaDigitada = ''
-    this.senha = this.add.text(450, 200, this.senhaTextoBase, {
+    this.senha = this.add.text(450, 250, this.senhaTextoBase, {
       fontFamily: 'monospace',
       font: '32px Courier',
       fill: '#cccccc'

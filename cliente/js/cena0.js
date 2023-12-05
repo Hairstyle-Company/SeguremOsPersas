@@ -17,6 +17,8 @@ export default class cena0 extends Phaser.Scene {
   }
   /*Adicionar menu e botão*/
   create () {
+    this.game.cenaCorrente = 'cena0'
+
     this.trilhaMenu = this.sound.add('trilha-menu')
     this.trilhaMenu.loop = true
     this.trilhaMenu.play()
@@ -41,7 +43,7 @@ export default class cena0 extends Phaser.Scene {
       .on('pointerover', () => {
       })
       .on('pointerdown', () => {
-        this.game.scene.stop('cena0')
+        this.game.scene.stop(this.game.cenaCorrente)
         this.game.scene.start('sala')
       })
 
